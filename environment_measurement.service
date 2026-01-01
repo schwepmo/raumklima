@@ -1,0 +1,9 @@
+[Unit]
+Description=Raumklima environment measurement (one-shot)
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/raumklima
+ExecStart=%h/raumklima/env/bin/python %h/raumklima/environment_reader.py

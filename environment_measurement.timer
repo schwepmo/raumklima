@@ -1,0 +1,11 @@
+[Unit]
+Description=Run environment measurements every 30s
+
+[Timer]
+OnBootSec=30
+OnUnitActiveSec=30s
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+
