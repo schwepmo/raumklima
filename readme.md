@@ -1,7 +1,7 @@
 # Raumklima Playground
 This repo contains a small setup that logs time series data to an influxdb2 bucket. Data is visualized using grafana.
 
-![screenshot](screenhsot.png)
+![screenshot](screenshot.png)
 
 ## Setup
 __Hardware:__
