@@ -2,10 +2,17 @@ apiVersion: dashboard.grafana.app/v2beta1
 kind: Dashboard
 metadata:
   name: adfvqps
-  generation: 9
+  namespace: default
+  uid: qZdeZN8KAdw0mo2U0nr66LdjJ0nptB6BCHKrKAMnVKMX
+  resourceVersion: '9'
+  generation: 10
   creationTimestamp: '2026-01-01T20:09:11Z'
-  labels: {}
-  annotations: {}
+  labels:
+    grafana.app/deprecatedInternalID: '1'
+  annotations:
+    grafana.app/createdBy: user:ff8vvyds7y0w0f
+    grafana.app/updatedBy: user:ff8vvyds7y0w0f
+    grafana.app/updatedTimestamp: '2026-01-02T19:02:23Z'
 spec:
   annotations:
     - kind: AnnotationQuery
@@ -16,6 +23,8 @@ spec:
         iconColor: rgba(0, 211, 255, 1)
         name: Annotations & Alerts
         query:
+          datasource:
+            name: '-- Grafana --'
           group: grafana
           kind: DataQuery
           spec: {}
@@ -35,33 +44,37 @@ spec:
                 spec:
                   hidden: false
                   query:
+                    datasource:
+                      name: cf8vwnkn3v9c0b
                     group: influxdb
                     kind: DataQuery
                     spec:
-                      query: |
+                      query: |-
                         from(bucket:"home")
-                          |> range(start:-24h)
+                          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
                           |> filter(fn: (r) => r._measurement == "env_measurement")
                           |> filter(fn: (r) => r._field == "temperature" and
                                                r.sensor_type == "ds18B20")
-                          |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)
+                          |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
                     version: v0
                   refId: A
               - kind: PanelQuery
                 spec:
                   hidden: false
                   query:
+                    datasource:
+                      name: cf8vwnkn3v9c0b
                     group: influxdb
                     kind: DataQuery
                     spec:
-                      query: |
+                      query: |-
                         from(bucket:"home")
-                          |> range(start:-24h)
+                          |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
                           |> filter(fn: (r) => r._measurement == "env_measurement")
                           |> filter(fn: (r) => r._field == "humidity" and
                                                r.sensor_type == "dht11"
                           )
-                          |> aggregateWindow(every: 5m, fn: mean, createEmpty: false)
+                          |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
                     version: v0
                   refId: B
             queryOptions: {}
@@ -152,6 +165,8 @@ spec:
                 spec:
                   hidden: false
                   query:
+                    datasource:
+                      name: cf8vwnkn3v9c0b
                     group: influxdb
                     kind: DataQuery
                     spec:
@@ -215,6 +230,8 @@ spec:
                 spec:
                   hidden: false
                   query:
+                    datasource:
+                      name: cf8vwnkn3v9c0b
                     group: influxdb
                     kind: DataQuery
                     spec:
@@ -326,7 +343,7 @@ spec:
       - 2h
       - 1d
     fiscalYearStartMonth: 0
-    from: now-12h
+    from: now-7d
     hideTimepicker: false
     timezone: browser
     to: now
